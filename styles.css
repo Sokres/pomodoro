@@ -1,0 +1,48 @@
+.pomidorro__input::-webkit-outer-spin-button,
+.pomidorro__input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0; /
+}
+.pomidorro{
+    display: flex;
+    align-items: center;
+}
+.pomidorro__wrap{
+    display: flex;
+    justify-content: center;
+    width: 220px;
+    margin-right: 10px;
+    padding: 5px;
+    border-radius: 20px;
+    border: 1px solid fuchsia ;
+    font-size: 20px;
+    color: OrangeRed;
+}
+.pomidorto__img{
+    margin: 0;
+    width: 30px;
+    height: 30px;
+    border: none;
+    background-color: transparent;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+.pomidorto__start{
+    background-image: url(/img/stop.svg);
+}
+.pomidorto__restart{
+    background-image: url(/img/restart.svg);
+}
+.pomidorto__start.pomidorto__start--stop{
+    background-image: url(/img/play.svg);
+}
+.pomidorro__input{
+    width: 26px;
+    border: none;
+    font-size: 20px;
+    color: OrangeRed;
+}
+.pomidorro__input:focus-visible{
+    outline: 0;
+    outline-offset: 0;
+}
