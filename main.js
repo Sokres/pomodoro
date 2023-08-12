@@ -5,6 +5,15 @@ const pomSec = pomidorro.querySelector('.pomidorro__input--sec');
 const btnStart = pomidorro.querySelector('.pomidorto__start');
 const btnRestart = pomidorro.querySelector('.pomidorto__restart');
 
+// if(pomHour.value == 0 || pomHour.value == NaN ){
+//     pomHour.value = '0'+ 0;
+// }
+// if(pomMin.value == 0 || pomMin.value == NaN ){
+//     pomMin.value = '0'+ 0;
+// }
+// if(pomSec.value == 0 || pomSec.value == NaN ){
+//     pomSec.value = '0'+ 0;
+// }
 pomHour.value = '0'+ 1;
 pomMin.value = '0'+ 5;
 pomSec.value = '0'+ 0;
@@ -36,29 +45,37 @@ btnRestart.addEventListener('click', () => {
     btnRestart.classList.toggle('test');
 });
 
-pomHour.addEventListener('keyup', function() {    
+pomHour.addEventListener('keyup', function() {   
+     console.log(this.value.length);
+     
     if(this.value < 0){
         this.value = '0'+ 0;
     }
     else if(this.value >= 99){
         this.value = 99;
     }
+    else if(this.value.length > 2){
+        this.value.shift();
+    }
 });
 pomMin.addEventListener('keyup', function() {
     if(this.value < 0){
         this.value = '0'+ 0;
     }
-    else if(this.value >= 60){
-        this.value = 60;
+    else if(this.value >= 59){
+        this.value = 59;
     }
 });
 pomSec.addEventListener('keyup', function() {
     if(this.value < 0){
         this.value = '0'+ 0;
     }
-    else if(this.value >= 60){
-        this.value = 60;
+    else if(this.value >= 59){
+        this.value = 59;
     }
+    // else if(this.value < 0){
+    //     this.value = 0;
+    // }
 });
 pomHour.addEventListener('focus', () => {    
     stop();
@@ -69,9 +86,19 @@ pomMin.addEventListener('focus', () => {
 pomSec.addEventListener('focus', () => {
     stop();
 })
-pomSec.addEventListener('blur', () => {
-    if (pomSec.value == '') {
-        pomSec.value = 0;
+pomHour.addEventListener('blur', function() {
+    if (this.value == '') {
+        this.value = '0' + 0;
+    }
+});
+pomMin.addEventListener('blur', function() {
+    if (this.value == '') {
+        this.value = '0' + 0;
+    }
+});
+pomSec.addEventListener('blur', function() {
+    if (this.value == '') {
+        this.value = '0' + 0;
     }
 });
 
@@ -83,29 +110,39 @@ function startTimer() {
     let sec = parseInt(pomSec.value);
     let total = horN+ minN + sec;
     total--;
+    if(total < 0 ){
+        total = 0;
+    }
     let h = parseInt(total / 3600);
     let hs = parseInt(total % 3600);
     let m = parseInt(hs / 60);
     let s = parseInt(hs % 60);
+    console.log(total)
+    //часы
     if(h < 10){
         pomHour.value = '0'+ h;
     }
     else{
+ 
         pomHour.value = h;
     }
+    // минуты
     if(m < 10){
         pomMin.value = '0'+ m;
     }
     else{
         pomMin.value = m;
-    }    if(s < 10){
+    }    
+    // секунды
+    if(s < 10){
         pomSec.value = '0'+ s;
     }
+
     else{
         pomSec.value = s;
     }
     
-    if (total == 0) {
+    if (total == 0 ) {
         audio.play();
         stop();
     }
