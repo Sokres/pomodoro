@@ -14,9 +14,9 @@ const btnRestart = pomidorro.querySelector('.pomidorto__restart');
 // if(pomSec.value == 0 || pomSec.value == NaN ){
 //     pomSec.value = '0'+ 0;
 // }
-pomHour.value = '0'+ 1;
-pomMin.value = '0'+ 5;
-pomSec.value = '0'+ 0;
+pomHour.value = '0' + 1;
+pomMin.value = '0' + 5;
+pomSec.value = '0' + 0;
 let flag = false;
 let timers;
 const audio = new Audio('/magic.mp3');
@@ -38,69 +38,67 @@ btnStart.addEventListener('click', function () {
 
 btnRestart.addEventListener('click', () => {
     // flag = false;
-    pomHour.value = '0'+ 1;
-    pomMin.value = '0'+ 5;
-    pomSec.value = '0'+ 0;
-    startTimer();    
+    pomHour.value = '0' + 1;
+    pomMin.value = '0' + 5;
+    pomSec.value = '0' + 0;
+    startTimer();
     btnRestart.classList.toggle('test');
 });
 
-pomHour.addEventListener('keyup', function() {   
-     console.log(this.value.length);
-     
-    if(this.value < 0){
-        this.value = '0'+ 0;
+pomHour.addEventListener('keyup', function () {
+    this.value = this.value.replace(/[^\d]/g, "");
+    if (this.value < 0) {
+        this.value = '0' + 0;
     }
-    else if(this.value >= 99){
+    else if (this.value >= 99) {
         this.value = 99;
     }
-    else if(this.value.length > 2){
-        this.value.shift();
+    else if (this.value.length > 2) {
+        this.value = this.value.slice(1);
+        console.log(typeof this.value);
     }
 });
-pomMin.addEventListener('keyup', function() {
-    if(this.value < 0){
-        this.value = '0'+ 0;
+pomMin.addEventListener('keyup', function () {
+    this.value = this.value.replace(/[^\d]/g, "");
+    if (this.value < 0) {
+        this.value = '0' + 0;
     }
-    else if(this.value >= 59){
+    else if (this.value >= 59) {
         this.value = 59;
     }
-});
-pomSec.addEventListener('keyup', function() {
-    if(this.value < 0){
-        this.value = '0'+ 0;
+    else if (this.value.length > 2) {
+        this.value = this.value.slice(1);
+        console.log(typeof this.value);
     }
-    else if(this.value >= 59){
+});
+pomSec.addEventListener('keyup', function () {
+    this.value = this.value.replace(/[^\d]/g, "");
+    if (this.value < 0) {
+        this.value = '0' + 0;
+    }
+    else if (this.value >= 59) {
         this.value = 59;
     }
-    // else if(this.value < 0){
-    //     this.value = 0;
-    // }
-});
-pomHour.addEventListener('focus', () => {    
-    stop();
-});
-pomMin.addEventListener('focus', () => {
-    stop();
-});
-pomSec.addEventListener('focus', () => {
-    stop();
-})
-pomHour.addEventListener('blur', function() {
-    if (this.value == '') {
-        this.value = '0' + 0;
+    else if (this.value.length > 2) {
+        this.value = this.value.slice(1);
+        console.log(typeof this.value);
     }
 });
-pomMin.addEventListener('blur', function() {
-    if (this.value == '') {
-        this.value = '0' + 0;
-    }
+function stopTarget(e){
+
+}
+pomidorro.addEventListener('click', (e) =>{
+    e.target.addEventListener('focus', () => {
+        stop();
+    });
+    e.target.addEventListener('blur', function () {
+        if (this.value == '') {
+            this.value = '0' + 0;
+        }
+    });
+    
 });
-pomSec.addEventListener('blur', function() {
-    if (this.value == '') {
-        this.value = '0' + 0;
-    }
-});
+
 
 function startTimer() {
     let hour = parseInt(pomHour.value);
@@ -108,9 +106,9 @@ function startTimer() {
     let min = parseInt(pomMin.value);
     let minN = min * 60;
     let sec = parseInt(pomSec.value);
-    let total = horN+ minN + sec;
+    let total = horN + minN + sec;
     total--;
-    if(total < 0 ){
+    if (total < 0) {
         total = 0;
     }
     let h = parseInt(total / 3600);
@@ -119,30 +117,30 @@ function startTimer() {
     let s = parseInt(hs % 60);
     console.log(total)
     //часы
-    if(h < 10){
-        pomHour.value = '0'+ h;
+    if (h < 10) {
+        pomHour.value = '0' + h;
     }
-    else{
- 
+    else {
+
         pomHour.value = h;
     }
     // минуты
-    if(m < 10){
-        pomMin.value = '0'+ m;
+    if (m < 10) {
+        pomMin.value = '0' + m;
     }
-    else{
+    else {
         pomMin.value = m;
-    }    
+    }
     // секунды
-    if(s < 10){
-        pomSec.value = '0'+ s;
+    if (s < 10) {
+        pomSec.value = '0' + s;
     }
 
-    else{
+    else {
         pomSec.value = s;
     }
-    
-    if (total == 0 ) {
+
+    if (total == 0) {
         audio.play();
         stop();
     }
